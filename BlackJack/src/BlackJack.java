@@ -8,6 +8,9 @@ public class BlackJack {
 		System.getProperty("file.encoding", "Unicode");
 
 		System.out.println("This is BlackJack card game.");
+		System.out.println("Please select a difficulty.");
+		System.out
+				.println("Press 'E' for easy(cash 150), 'N' for normal (cash 100) and 'H' for hard (cash 50)");
 
 		Scanner input = new Scanner(System.in);
 
@@ -15,11 +18,31 @@ public class BlackJack {
 		boolean playerPass = false;
 		boolean surrender = false;
 
-		int cash = 100;
+		char[] str = new char[0];
+		int cash = 0;
 		int bet = 0;
 		int wincash = 0;
-		char[] str = new char[0];
 
+		str = input.nextLine().toLowerCase().toCharArray();
+
+		while (str[0] != 'n' && str[0] != 'h' && str[0] != 'e') {
+			System.out
+					.println("You have entered incorrect input. Please try again:");
+			System.out
+					.println("Press 'E' for easy(cash 150), 'N' for normal (cash 100) and 'H' for hard (cash 50):");
+			str = input.nextLine().toLowerCase().toCharArray();
+		}
+
+		// Setting the starting amount of cash.
+		if (str[0] == 'e') {
+			cash = 150;
+		} else if (str[0] == 'n') {
+			cash = 100;
+		} else if (str[0] == 'h') {
+			cash = 50;
+		}
+
+		// Main loop
 		while (cash > 0) {
 			int hand = 1;
 			noWinner = true;
@@ -31,7 +54,7 @@ public class BlackJack {
 			ArrayList<Integer> playerValue = new ArrayList<Integer>();
 
 			for (int i = 0; i < 2; i++) {
-
+				
 				Random randomR = new Random();
 				int dealerR = randomR.nextInt(13);
 				dealerHand.add(Suit.cards(dealerR));
@@ -45,7 +68,7 @@ public class BlackJack {
 				playerHand.add(Suit.cards(playerR));
 				playerValue.add(Suit.cardValues(playerR));
 			}
-
+			// This is for clearing the terminal under Linux.
 			// System.out.println("\033[2J");
 
 			System.out.println("Your current cash is: " + cash);
@@ -61,14 +84,17 @@ public class BlackJack {
 			}
 			cash -= bet;
 
+			// This loop is valid until the final result of the hands is known.
 			while (noWinner) {
 				wincash = 0;
 				hand++;
+				
 				if (surrender == true) {
 					cash += bet / 2;
 					break;
 				}
-				// Dealer hand
+				
+				//Checking Dealer's hand
 				if (hand > 2) {
 					if (Suit.sum(dealerValue) <= 16 && playerPass == true) {
 
@@ -88,15 +114,15 @@ public class BlackJack {
 				}
 
 				if (hand > 2 && playerPass == true) {
-					Dealer.dealerHandPrint(dealerHand, dealerValue, playerValue, hand,
-							playerPass);
+					Dealer.dealerHandPrint(dealerHand, dealerValue,
+							playerValue, hand, playerPass);
 					// Print Player Hand
-					//
 					Player.playerHandPrint(playerHand, playerValue, hand);
 
+					// This loop plays when the player draws no more hands and
+					// while the dealer has over 17 points.
 					while (Suit.sum(dealerValue) <= 16) {
 						hand++;
-
 						System.out.println("\nDealer got a new card");
 						Random randomR = new Random();
 						int dealerR = randomR.nextInt(13);
@@ -104,13 +130,10 @@ public class BlackJack {
 						dealerValue.add(Suit.cardValues(dealerR));
 
 						// Print Dealer Hand
-						//
-						Dealer.dealerHandPrint(dealerHand, dealerValue, playerValue, hand,
-								playerPass);
+						Dealer.dealerHandPrint(dealerHand, dealerValue,
+								playerValue, hand, playerPass);
 						// Print Player Hand
-						//
 						Player.playerHandPrint(playerHand, playerValue, hand);
-
 					}
 
 					if (Suit.sum(dealerValue) > 21) {
@@ -147,15 +170,13 @@ public class BlackJack {
 					break;
 				}
 
-				Dealer.dealerHandPrint(dealerHand, dealerValue, playerValue, hand,
-						playerPass);
+				Dealer.dealerHandPrint(dealerHand, dealerValue, playerValue,
+						hand, playerPass);
 				// Print Player Hand
-				//
 				Player.playerHandPrint(playerHand, playerValue, hand);
 
 				if ((Suit.sum(dealerValue) == 21)
 						&& (Suit.sum(playerValue) == 21) && hand > 2) {
-					;
 					System.out.println("\nPush"); // The game is a draw (i.e. No
 					// Winner)
 					wincash = bet;
@@ -188,6 +209,8 @@ public class BlackJack {
 				if ((cash - bet) < 0) {
 					System.out.println("Hit(H) or Stand(S) or Surrender(U)");
 					str = input.nextLine().toLowerCase().toCharArray();
+
+					// Making sure there is no incorrect input.
 					while (str[0] != 's' && str[0] != 'h' && str[0] != 'u') {
 						System.out
 								.println("You have entered incorrect input. Please try again:");
@@ -199,6 +222,8 @@ public class BlackJack {
 					System.out
 							.println("\nHit(H) or Stand(S) or Double(D) or Surrender(U)");
 					str = input.nextLine().toLowerCase().toCharArray();
+
+					// Making sure there is no incorrect input.
 					while (str[0] != 's' && str[0] != 'h' && str[0] != 'u'
 							&& str[0] != 'd') {
 						System.out
@@ -209,6 +234,7 @@ public class BlackJack {
 					}
 				}
 
+				// Checking the different player's inputs.
 				if (str[0] == 'h') {
 
 					System.out.println("You've got a new card.");
@@ -230,7 +256,6 @@ public class BlackJack {
 					int playerR = randomR.nextInt(13);
 					playerHand.add(Suit.cards(playerR));
 					playerValue.add(Suit.cardValues(playerR));
-
 					cash -= bet;
 					bet = bet * 2;
 					playerPass = true;
@@ -240,8 +265,8 @@ public class BlackJack {
 				}
 			}
 		}
+		// End of game, you have lost!
 		System.out.println("You have " + cash + " cash left.");
-		System.out.println("You have lost! :( ");
+		System.out.println("You have lost! :(");
 	}
-
 }

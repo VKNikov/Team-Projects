@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Dealer {
+	//Method for printing the Dealer's hand
 	public static void dealerHandPrint(ArrayList<String> dealerHand, ArrayList<Integer> dealerValue, 
 			ArrayList<Integer> playerValue,int hand, boolean playerPass) {
 		
@@ -14,9 +15,6 @@ public class Dealer {
 				// Display dealer cards with second card hidden
 				System.out.print("\n" + dealerHand.get(0) + "  ???"); 
 			}
-			System.out.print("Dealer has ");
-			// Display dealer cards with second card hidden
-			System.out.print("\n" + dealerHand.get(0) + "  ???"); 
 
 		} else {
 			System.out.print("Dealer has ");

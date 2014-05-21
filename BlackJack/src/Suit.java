@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Suit {
+	
+	//Method for generating a random card.
 	public static String cards(int rowIndex) {
 
 		String[] rows = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J",
@@ -18,6 +20,7 @@ public class Suit {
 		return card;
 	}
 
+	//Method for generating the card's value.
 	public static int cardValues(int cardIndex) {
 		int cardValue;
 
@@ -59,6 +62,7 @@ public class Suit {
 		return cardValue;
 	}
 	
+	//method for calculating the hand's sum.
 	public static Integer sum(ArrayList<Integer> list) {
 		Integer sum = 0;
 		for (Integer i : list) {
