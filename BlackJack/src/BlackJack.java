@@ -39,18 +39,12 @@ public class BlackJack {
 
 			for (int i = 0; i < 2; i++) {
 
-				Random randomR = new Random();
-				int dealerR = randomR.nextInt(13);
-				dealerHand.add(Suit.cards(dealerR));
-				dealerValue.add(Suit.cardValues(dealerR));
+				Suit.drawDealerHand(dealerHand, dealerValue);
 			}
 
 			for (int i = 0; i < 2; i++) {
 
-				Random randomR = new Random();
-				int playerR = randomR.nextInt(13);
-				playerHand.add(Suit.cards(playerR));
-				playerValue.add(Suit.cardValues(playerR));
+				Suit.drawePlayerHand(playerHand, playerValue);
 			}
 			// This is for clearing the terminal under Linux.
 			// System.out.println("\033[2J");
@@ -75,11 +69,7 @@ public class BlackJack {
 				if (hand > 2) {
 					if (Suit.sum(dealerValue) <= 16 && playerPass == true) {
 
-						System.out.println("\nDealer got a new card.");
-						Random randomR = new Random();
-						int dealerR = randomR.nextInt(13);
-						dealerHand.add(Suit.cards(dealerR));
-						dealerValue.add(Suit.cardValues(dealerR));
+						Suit.drawDealerHand(dealerHand, dealerValue);
 
 					} else if (Suit.sum(dealerValue) > 21) {
 						wincash = bet * 2;
@@ -99,10 +89,7 @@ public class BlackJack {
 					while (Suit.sum(dealerValue) <= 16) {
 						hand++;
 						System.out.println("\nDealer got a new card.");
-						Random randomR = new Random();
-						int dealerR = randomR.nextInt(13);
-						dealerHand.add(Suit.cards(dealerR));
-						dealerValue.add(Suit.cardValues(dealerR));
+						Suit.drawDealerHand(dealerHand, dealerValue);
 
 						printHands(playerPass, hand, dealerHand, dealerValue,
 								playerHand, playerValue);
@@ -186,10 +173,7 @@ public class BlackJack {
 				if (str[0] == 'h') {
 
 					System.out.println("You've got a new card.");
-					Random randomR = new Random();
-					int playerR = randomR.nextInt(13);
-					playerHand.add(Suit.cards(playerR));
-					playerValue.add(Suit.cardValues(playerR));
+					Suit.drawePlayerHand(playerHand, playerValue);
 
 				} else if (str[0] == 'u') {
 
@@ -200,10 +184,7 @@ public class BlackJack {
 				} else if (str[0] == 'd') {
 					System.out.println("You double your bet!");
 					System.out.println("You've got a new card.");
-					Random randomR = new Random();
-					int playerR = randomR.nextInt(13);
-					playerHand.add(Suit.cards(playerR));
-					playerValue.add(Suit.cardValues(playerR));
+					Suit.drawePlayerHand(playerHand, playerValue);
 					cash -= bet;
 					bet = bet * 2;
 					playerPass = true;
@@ -217,6 +198,7 @@ public class BlackJack {
 		System.out.println("You have " + cash + " cash left.");
 		System.out.println("You have lost! :(");
 	}
+	
 
 	//Printing the hands
 	private static void printHands(boolean playerPass, int hand,

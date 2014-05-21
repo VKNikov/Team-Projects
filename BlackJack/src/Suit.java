@@ -78,4 +78,22 @@ public class Suit {
 		}
 		return sum;
 	}
+	
+	//Draw Dealer hand.
+		public static void drawDealerHand(ArrayList<String> dealerHand,
+				ArrayList<Integer> dealerValue) {
+			Random randomR = new Random();
+			int dealerR = randomR.nextInt(13);
+			dealerHand.add(Suit.cards(dealerR));
+			dealerValue.add(Suit.cardValues(dealerR));
+		}
+		
+		//Draw Player hand.
+		public static void drawePlayerHand(ArrayList<String> playerHand,
+				ArrayList<Integer> playerValue) {
+			Random randomR = new Random();
+			int playerR = randomR.nextInt(13);
+			playerHand.add(Suit.cards(playerR));
+			playerValue.add(Suit.cardValues(playerR));
+		}
 }
