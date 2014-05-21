@@ -72,7 +72,7 @@ public class BlackJack {
 			// System.out.println("\033[2J");
 
 			System.out.println("Your current cash is: " + cash);
-			System.out.printf("\nEnter your bet:");
+			System.out.printf("\nEnter your bet: ");
 			bet = Integer.parseInt(input.nextLine());
 
 			while (bet > cash) {
@@ -123,7 +123,7 @@ public class BlackJack {
 					// while the dealer has over 17 points.
 					while (Suit.sum(dealerValue) <= 16) {
 						hand++;
-						System.out.println("\nDealer got a new card");
+						System.out.println("\nDealer got a new card.");
 						Random randomR = new Random();
 						int dealerR = randomR.nextInt(13);
 						dealerHand.add(Suit.cards(dealerR));
