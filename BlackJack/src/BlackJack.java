@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class BlackJack {
-	
+
 	public static void main(String[] args) {
 		System.getProperty("file.encoding", "Unicode");
 
@@ -88,7 +88,8 @@ public class BlackJack {
 				}
 
 				if (hand > 2 && playerPass == true) {
-					Dealer.dealerHandPrint(dealerHand, dealerValue, hand, playerPass);
+					Dealer.dealerHandPrint(dealerHand, dealerValue, playerValue, hand,
+							playerPass);
 					// Print Player Hand
 					//
 					Player.playerHandPrint(playerHand, playerValue, hand);
@@ -104,7 +105,7 @@ public class BlackJack {
 
 						// Print Dealer Hand
 						//
-						Dealer.dealerHandPrint(dealerHand, dealerValue, hand,
+						Dealer.dealerHandPrint(dealerHand, dealerValue, playerValue, hand,
 								playerPass);
 						// Print Player Hand
 						//
@@ -146,13 +147,14 @@ public class BlackJack {
 					break;
 				}
 
-				Dealer.dealerHandPrint(dealerHand, dealerValue, hand, playerPass);
+				Dealer.dealerHandPrint(dealerHand, dealerValue, playerValue, hand,
+						playerPass);
 				// Print Player Hand
 				//
 				Player.playerHandPrint(playerHand, playerValue, hand);
 
-				if ((Suit.sum(dealerValue) == 21) && (Suit.sum(playerValue) == 21)
-						&& hand > 2) {
+				if ((Suit.sum(dealerValue) == 21)
+						&& (Suit.sum(playerValue) == 21) && hand > 2) {
 					;
 					System.out.println("\nPush"); // The game is a draw (i.e. No
 					// Winner)
