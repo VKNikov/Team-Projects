@@ -23,24 +23,8 @@ public class BlackJack {
 		int bet = 0;
 		int wincash = 0;
 
-		str = input.nextLine().toLowerCase().toCharArray();
-
-		while (str[0] != 'n' && str[0] != 'h' && str[0] != 'e') {
-			System.out
-					.println("You have entered incorrect input. Please try again:");
-			System.out
-					.println("Press 'E' for easy(cash 150), 'N' for normal (cash 100) and 'H' for hard (cash 50):");
-			str = input.nextLine().toLowerCase().toCharArray();
-		}
-
-		// Setting the starting amount of cash.
-		if (str[0] == 'e') {
-			cash = 150;
-		} else if (str[0] == 'n') {
-			cash = 100;
-		} else if (str[0] == 'h') {
-			cash = 50;
-		}
+		str = Player.checkCorrectDifficulty(input);
+		cash = Player.startWith(str, cash);
 
 		// Main loop
 		while (cash > 0) {
@@ -54,7 +38,7 @@ public class BlackJack {
 			ArrayList<Integer> playerValue = new ArrayList<Integer>();
 
 			for (int i = 0; i < 2; i++) {
-				
+
 				Random randomR = new Random();
 				int dealerR = randomR.nextInt(13);
 				dealerHand.add(Suit.cards(dealerR));
@@ -73,28 +57,21 @@ public class BlackJack {
 
 			System.out.println("Your current cash is: " + cash);
 			System.out.printf("\nEnter your bet: ");
-			bet = Integer.parseInt(input.nextLine());
 
-			while (bet > cash) {
-				System.out.println("Your current cash is: " + cash);
-				System.out
-						.printf("You do not have enough money to bet %d. Please enter again your bet:",
-								bet);
-				bet = Integer.parseInt(input.nextLine());
-			}
+			bet = Player.setBet(input, cash);
 			cash -= bet;
 
 			// This loop is valid until the final result of the hands is known.
 			while (noWinner) {
 				wincash = 0;
 				hand++;
-				
+
 				if (surrender == true) {
 					cash += bet / 2;
 					break;
 				}
-				
-				//Checking Dealer's hand
+
+				// Checking Dealer's hand
 				if (hand > 2) {
 					if (Suit.sum(dealerValue) <= 16 && playerPass == true) {
 
@@ -114,10 +91,8 @@ public class BlackJack {
 				}
 
 				if (hand > 2 && playerPass == true) {
-					Dealer.dealerHandPrint(dealerHand, dealerValue,
-							playerValue, hand, playerPass);
-					// Print Player Hand
-					Player.playerHandPrint(playerHand, playerValue, hand);
+					printHands(playerPass, hand, dealerHand, dealerValue,
+							playerHand, playerValue);
 
 					// This loop plays when the player draws no more hands and
 					// while the dealer has over 17 points.
@@ -129,11 +104,8 @@ public class BlackJack {
 						dealerHand.add(Suit.cards(dealerR));
 						dealerValue.add(Suit.cardValues(dealerR));
 
-						// Print Dealer Hand
-						Dealer.dealerHandPrint(dealerHand, dealerValue,
-								playerValue, hand, playerPass);
-						// Print Player Hand
-						Player.playerHandPrint(playerHand, playerValue, hand);
+						printHands(playerPass, hand, dealerHand, dealerValue,
+								playerHand, playerValue);
 					}
 
 					if (Suit.sum(dealerValue) > 21) {
@@ -170,10 +142,8 @@ public class BlackJack {
 					break;
 				}
 
-				Dealer.dealerHandPrint(dealerHand, dealerValue, playerValue,
-						hand, playerPass);
-				// Print Player Hand
-				Player.playerHandPrint(playerHand, playerValue, hand);
+				printHands(playerPass, hand, dealerHand, dealerValue,
+						playerHand, playerValue);
 
 				if ((Suit.sum(dealerValue) == 21)
 						&& (Suit.sum(playerValue) == 21) && hand > 2) {
@@ -207,31 +177,9 @@ public class BlackJack {
 				}
 
 				if ((cash - bet) < 0) {
-					System.out.println("Hit(H) or Stand(S) or Surrender(U)");
-					str = input.nextLine().toLowerCase().toCharArray();
-
-					// Making sure there is no incorrect input.
-					while (str[0] != 's' && str[0] != 'h' && str[0] != 'u') {
-						System.out
-								.println("You have entered incorrect input. Please try again:");
-						System.out
-								.println("Hit(H) or Stand(S) or Surrender(U)");
-						str = input.nextLine().toLowerCase().toCharArray();
-					}
+					str = Player.inputWithoutDouble(input);
 				} else {
-					System.out
-							.println("\nHit(H) or Stand(S) or Double(D) or Surrender(U)");
-					str = input.nextLine().toLowerCase().toCharArray();
-
-					// Making sure there is no incorrect input.
-					while (str[0] != 's' && str[0] != 'h' && str[0] != 'u'
-							&& str[0] != 'd') {
-						System.out
-								.println("You have entered incorrect input. Please try again:");
-						System.out
-								.println("\nHit(H) or Stand(S) or Double(D) or Surrender(U)");
-						str = input.nextLine().toLowerCase().toCharArray();
-					}
+					str = Player.inputWithDouble(input);
 				}
 
 				// Checking the different player's inputs.
@@ -268,5 +216,16 @@ public class BlackJack {
 		// End of game, you have lost!
 		System.out.println("You have " + cash + " cash left.");
 		System.out.println("You have lost! :(");
+	}
+
+	//Printing the hands
+	private static void printHands(boolean playerPass, int hand,
+			ArrayList<String> dealerHand, ArrayList<Integer> dealerValue,
+			ArrayList<String> playerHand, ArrayList<Integer> playerValue) {
+		// Print Dealer Hand
+		Dealer.dealerHandPrint(dealerHand, dealerValue,
+				playerValue, hand, playerPass);
+		// Print Player Hand
+		Player.playerHandPrint(playerHand, playerValue, hand);
 	}
 }
