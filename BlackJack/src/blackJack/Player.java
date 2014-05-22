@@ -1,7 +1,6 @@
+package blackJack;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import org.omg.CORBA.PRIVATE_MEMBER;
 
 public class Player {
 	
@@ -79,7 +78,7 @@ public class Player {
 	//Player input without Double choice.
 	public static char[] inputWithoutDouble(Scanner input) {
 		char[] str;
-		System.out.println("Hit(H) or Stand(S) or Surrender(U)");
+		System.out.println("\nHit(H) or Stand(S) or Surrender(U)");
 		str = input.nextLine().toLowerCase().toCharArray();
 
 		// Making sure there is no incorrect input.

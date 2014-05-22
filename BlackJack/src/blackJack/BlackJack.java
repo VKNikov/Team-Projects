@@ -1,3 +1,4 @@
+package blackJack;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,12 +23,16 @@ public class BlackJack {
 		int cash = 0;
 		int bet = 0;
 		int wincash = 0;
+		int round = 1;
 
 		str = Player.checkCorrectDifficulty(input);
 		cash = Player.startWith(str, cash);
 
 		// Main loop
 		while (cash > 0) {
+			System.out.println("Your current cash is: " + cash);
+			System.out.printf("\nRound %d:\n", round);
+			round++;
 			int hand = 1;
 			noWinner = true;
 			playerPass = false;
@@ -52,7 +57,7 @@ public class BlackJack {
 			// This is for clearing the terminal under Linux.
 			// System.out.println("\033[2J");
 
-			System.out.println("Your current cash is: " + cash);
+			
 			System.out.printf("\nEnter your bet: ");
 
 			bet = Player.setBet(input, cash, bet, correctBet);
@@ -136,7 +141,7 @@ public class BlackJack {
 						playerHand, playerValue);
 
 				if ((Suit.sum(dealerValue) == 21)
-						&& (Suit.sum(playerValue) == 21) && hand > 2) {
+						&& (Suit.sum(playerValue) == 21) && playerPass == true) {
 					System.out.println("\nIt's a Draw!"); // The game is a draw (i.e. No
 					// Winner)
 					wincash = bet;
@@ -144,13 +149,13 @@ public class BlackJack {
 					cash += wincash;
 					System.out.println("You get " + wincash + " cash back.");
 					break;
-				} else if ((Suit.sum(dealerValue) == 21) && (hand > 2)) {
+				} else if ((Suit.sum(dealerValue) == 21) && playerPass == true) {
 					System.out.println("\nYou lost!"); // CASE 7 -dealer's
 					wincash -= bet;
 					bet = 0;
 					System.out.println("You loose: " + wincash + " cash.");
 					break;
-				} else if ((Suit.sum(playerValue) == 21) && hand > 2) {
+				} else if ((Suit.sum(playerValue) == 21) && playerPass == true) {
 					System.out.println("\nYou win!");
 					wincash = (bet * 2);
 					bet = 0;

@@ -1,3 +1,4 @@
+package blackJack;
 import java.util.ArrayList;
 
 public class Dealer {
@@ -6,8 +7,7 @@ public class Dealer {
 			ArrayList<Integer> playerValue,int hand, boolean playerPass) {
 		
 		if (hand == 2 || playerPass == false) {
-			if ((Suit.sum(playerValue) > Suit.sum(dealerValue)) && (Suit.sum(playerValue) == Suit.sum(dealerValue))
-					&& Suit.sum(playerValue) < 21) {
+			if ((Suit.sum(playerValue) > Suit.sum(dealerValue)) && Suit.sum(playerValue) <= 21) {
 				System.out.print("Dealer has ");
 				// Display dealer cards with second card hidden
 				System.out.print("\n" + dealerHand.get(0) + "  ???"); 
