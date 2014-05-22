@@ -2,6 +2,23 @@ package blackJack;
 import java.util.ArrayList;
 
 public class Dealer {
+	
+	public static void dealerDrawCard(boolean playerPass, int hand,
+			ArrayList<String> dealerHand, ArrayList<Integer> dealerValue,
+			ArrayList<String> playerHand, ArrayList<Integer> playerValue) {
+		
+		// This loop plays when the player draws no more hands and
+		// until the dealer has over 16 points.
+		while (Suit.sum(dealerValue) <= 16) {
+			hand++;
+			System.out.println("\nDealer got a new card.");
+			Suit.drawDealerHand(dealerHand, dealerValue);
+
+			BlackJack.printHands(playerPass, hand, dealerHand, dealerValue,
+					playerHand, playerValue);
+		}
+	}
+	
 	//Method for printing the Dealer's hand
 	public static void dealerHandPrint(ArrayList<String> dealerHand, ArrayList<Integer> dealerValue, 
 			ArrayList<Integer> playerValue,int hand, boolean playerPass) {

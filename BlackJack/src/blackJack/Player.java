@@ -32,12 +32,15 @@ public class Player {
 		return cash;
 	}
 
-	//Check player's bet.
+	//Get player's bet.
 	public static int setBet(Scanner input, int cash, int bet, boolean correctBet) {
 		
+		
 		while (!correctBet) {
+			//Checks for correct parsing of the input as integer.
 			try {
 				bet = Integer.parseInt(input.nextLine());
+				
 				while (bet > cash) {
 					System.out.println("Your current cash is: " + cash);
 					System.out

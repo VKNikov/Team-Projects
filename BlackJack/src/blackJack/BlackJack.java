@@ -1,4 +1,5 @@
 package blackJack;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,11 +11,11 @@ public class BlackJack {
 		System.out.println("This is BlackJack card game.");
 		System.out.println("Please select a difficulty.");
 		System.out
-				.println("Press 'E' for easy(cash 150), 'N' for normal (cash 100) and 'H' for hard (cash 50)");
+				.println("Press 'E' for easy(cash 150), 'N' for normal (cash 100) and 'H' for hard (cash 50).");
 
 		Scanner input = new Scanner(System.in);
 
-		//Declaring some initial variables.
+		// Declaring some initial variables.
 		boolean noWinner = true;
 		boolean playerPass = false;
 		boolean surrender = false;
@@ -42,22 +43,21 @@ public class BlackJack {
 			ArrayList<String> playerHand = new ArrayList<String>();
 			ArrayList<Integer> playerValue = new ArrayList<Integer>();
 
-			//Draw the first two hands of the Dealer.
+			// Draw the first two hands of the Dealer.
 			for (int i = 0; i < 2; i++) {
 
 				Suit.drawDealerHand(dealerHand, dealerValue);
 			}
 
-			//Draw the first two hands of the Player.
+			// Draw the first two hands of the Player.
 			for (int i = 0; i < 2; i++) {
 
 				Suit.drawePlayerHand(playerHand, playerValue);
 			}
-			
+
 			// This is for clearing the terminal under Linux.
 			// System.out.println("\033[2J");
 
-			
 			System.out.printf("\nEnter your bet: ");
 
 			bet = Player.setBet(input, cash, bet, correctBet);
@@ -75,7 +75,8 @@ public class BlackJack {
 
 				// Checking Dealer's hand
 				if (hand > 2) {
-					if (Suit.sum(dealerValue) <= 16 && playerPass == true && Suit.sum(playerValue) < 21) {
+					if (Suit.sum(dealerValue) <= 16 && playerPass == true
+							&& Suit.sum(playerValue) < 21) {
 
 						Suit.drawDealerHand(dealerHand, dealerValue);
 
@@ -92,16 +93,9 @@ public class BlackJack {
 					printHands(playerPass, hand, dealerHand, dealerValue,
 							playerHand, playerValue);
 
-					// This loop plays when the player draws no more hands and
-					// until the dealer has over 16 points.
-					while (Suit.sum(dealerValue) <= 16) {
-						hand++;
-						System.out.println("\nDealer got a new card.");
-						Suit.drawDealerHand(dealerHand, dealerValue);
-
-						printHands(playerPass, hand, dealerHand, dealerValue,
-								playerHand, playerValue);
-					}
+					// Draw and print dealer's hand.
+					Dealer.dealerDrawCard(playerPass, hand, dealerHand,
+							dealerValue, playerHand, playerValue);
 
 					if (Suit.sum(dealerValue) > 21) {
 						System.out.println("\nDealer busted!");
@@ -120,7 +114,8 @@ public class BlackJack {
 						System.out.println("You win " + wincash + " cash!");
 					} else if (Suit.sum(playerValue) == Suit.sum(dealerValue)) {
 
-						System.out.println("\nIt's a Draw!"); // The game is a draw
+						System.out.println("\nIt's a Draw!"); // The game is a
+																// draw
 						// (i.e. No Winner)
 						wincash = bet;
 						bet = 0;
@@ -140,9 +135,9 @@ public class BlackJack {
 				printHands(playerPass, hand, dealerHand, dealerValue,
 						playerHand, playerValue);
 
-				if ((Suit.sum(dealerValue) == 21)
-						&& (Suit.sum(playerValue) == 21) && playerPass == true) {
-					System.out.println("\nIt's a Draw!"); // The game is a draw (i.e. No
+				if ((Suit.sum(dealerValue) == Suit.sum(playerValue) && playerPass == true)) {
+					System.out.println("\nIt's a Draw!"); // The game is a draw
+															// (i.e. No
 					// Winner)
 					wincash = bet;
 					bet = 0;
@@ -206,15 +201,14 @@ public class BlackJack {
 		System.out.println("You have " + cash + " cash left.");
 		System.out.println("You have lost! :(");
 	}
-	
 
-	//Printing the hands
-	private static void printHands(boolean playerPass, int hand,
+	// Printing the hands
+	public static void printHands(boolean playerPass, int hand,
 			ArrayList<String> dealerHand, ArrayList<Integer> dealerValue,
 			ArrayList<String> playerHand, ArrayList<Integer> playerValue) {
 		// Print Dealer Hand
-		Dealer.dealerHandPrint(dealerHand, dealerValue,
-				playerValue, hand, playerPass);
+		Dealer.dealerHandPrint(dealerHand, dealerValue, playerValue, hand,
+				playerPass);
 		// Print Player Hand
 		Player.playerHandPrint(playerHand, playerValue, hand);
 	}
