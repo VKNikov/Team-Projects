@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.omg.CORBA.PRIVATE_MEMBER;
+
 public class Player {
 	
 	//Validating the player's input for difficulty.
@@ -32,16 +34,25 @@ public class Player {
 	}
 
 	//Check player's bet.
-	public static int setBet(Scanner input, int cash) {
-		int bet;
-		bet = Integer.parseInt(input.nextLine());
-
-		while (bet > cash) {
-			System.out.println("Your current cash is: " + cash);
-			System.out
-					.printf("You do not have enough money to bet %d. Please enter again your bet:",
-							bet);
-			bet = Integer.parseInt(input.nextLine());
+	public static int setBet(Scanner input, int cash, int bet, boolean correctBet) {
+		
+		while (!correctBet) {
+			try {
+				bet = Integer.parseInt(input.nextLine());
+				while (bet > cash) {
+					System.out.println("Your current cash is: " + cash);
+					System.out
+							.printf("You do not have enough money to bet %d. Please enter again your bet\n:",
+									bet);
+					bet = Integer.parseInt(input.nextLine());
+				}
+				correctBet = true;
+			} 
+			catch (NumberFormatException e) {
+				System.out.println("Incorrect input!");
+				System.out.println("Please enter again your bet:");
+				continue;
+			}
 		}
 		return bet;
 	}

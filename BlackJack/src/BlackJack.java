@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 public class BlackJack {
@@ -14,10 +13,11 @@ public class BlackJack {
 
 		Scanner input = new Scanner(System.in);
 
+		//Declaring some initial variables.
 		boolean noWinner = true;
 		boolean playerPass = false;
 		boolean surrender = false;
-
+		boolean correctBet = false;
 		char[] str = new char[0];
 		int cash = 0;
 		int bet = 0;
@@ -37,22 +37,25 @@ public class BlackJack {
 			ArrayList<String> playerHand = new ArrayList<String>();
 			ArrayList<Integer> playerValue = new ArrayList<Integer>();
 
+			//Draw the first two hands of the Dealer.
 			for (int i = 0; i < 2; i++) {
 
 				Suit.drawDealerHand(dealerHand, dealerValue);
 			}
 
+			//Draw the first two hands of the Player.
 			for (int i = 0; i < 2; i++) {
 
 				Suit.drawePlayerHand(playerHand, playerValue);
 			}
+			
 			// This is for clearing the terminal under Linux.
 			// System.out.println("\033[2J");
 
 			System.out.println("Your current cash is: " + cash);
 			System.out.printf("\nEnter your bet: ");
 
-			bet = Player.setBet(input, cash);
+			bet = Player.setBet(input, cash, bet, correctBet);
 			cash -= bet;
 
 			// This loop is valid until the final result of the hands is known.
@@ -67,7 +70,7 @@ public class BlackJack {
 
 				// Checking Dealer's hand
 				if (hand > 2) {
-					if (Suit.sum(dealerValue) <= 16 && playerPass == true) {
+					if (Suit.sum(dealerValue) <= 16 && playerPass == true && Suit.sum(playerValue) < 21) {
 
 						Suit.drawDealerHand(dealerHand, dealerValue);
 
@@ -85,7 +88,7 @@ public class BlackJack {
 							playerHand, playerValue);
 
 					// This loop plays when the player draws no more hands and
-					// while the dealer has over 17 points.
+					// until the dealer has over 16 points.
 					while (Suit.sum(dealerValue) <= 16) {
 						hand++;
 						System.out.println("\nDealer got a new card.");
@@ -112,7 +115,7 @@ public class BlackJack {
 						System.out.println("You win " + wincash + " cash!");
 					} else if (Suit.sum(playerValue) == Suit.sum(dealerValue)) {
 
-						System.out.println("\nPush"); // The game is a draw
+						System.out.println("\nIt's a Draw!"); // The game is a draw
 						// (i.e. No Winner)
 						wincash = bet;
 						bet = 0;
@@ -134,7 +137,7 @@ public class BlackJack {
 
 				if ((Suit.sum(dealerValue) == 21)
 						&& (Suit.sum(playerValue) == 21) && hand > 2) {
-					System.out.println("\nPush"); // The game is a draw (i.e. No
+					System.out.println("\nIt's a Draw!"); // The game is a draw (i.e. No
 					// Winner)
 					wincash = bet;
 					bet = 0;
