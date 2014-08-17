@@ -1,0 +1,83 @@
+footer {
+    margin-top: 5%;
+    color: #ff9c00;
+    width: 100%;
+    height: 250px;
+    background: url("../images/grass_8.jpg") repeat center;
+    background-size: contain;
+}
+
+footer div {
+    display: inline-block;
+    margin-left: 3%;
+    width: 20%;
+    float: left;
+}
+
+footer ul li {
+
+    list-style: none;
+}
+
+footer ul {
+    padding-left: 0;
+}
+
+footer a {
+    text-decoration: none;
+    color: #fff;
+}
+
+footer a:hover {
+    cursor: pointer;
+    color: #ff9c00;
+}
+
+footer span {
+    color: #fff;
+}
+
+#last {
+    margin-top: 20px;
+}
+
+.socials1 {
+     display: inline-block;
+     background: url("../images/twitter.png") no-repeat center;
+     background-size: cover;
+     width: 25px;
+     height: 25px;
+ }
+
+.socials2 {
+    display: inline-block;
+    background: url("../images/facebook.png") no-repeat center;
+    background-size: cover;
+    width: 25px;
+    height: 25px;
+    margin-left: 2px;
+}
+
+.socials3 {
+    display: inline-block;
+    background: url("../images/google+.png") no-repeat center;
+    background-size: cover;
+    width: 25px;
+    height: 25px;
+    margin-left: 2px;
+}
+
+
+@media screen and (max-width: 700px) {
+
+    footer {
+        font-size: 14px;
+    }
+
+    #last {
+        display: none;
+    }
+}
+
+
+

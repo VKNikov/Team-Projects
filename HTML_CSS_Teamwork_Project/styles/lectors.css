@@ -1,0 +1,144 @@
+html, body, span, applet, object, iframe,
+h1, h2, h3, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+
+
+
+body {
+	background-image: url('../images/subHeader.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 180px;
+    font-family:Calibri;
+	background-color: #eeeeee;
+}
+
+
+hr {
+	width:94%;
+	margin-top: 30px;
+	background-color: #254564;
+}
+
+section {
+	font-family: Calibri;
+}
+
+section h1 {
+	padding-top: 20px;
+	margin-top: 200px;
+    margin-left: 3%;
+    font-size: 32px;
+    font-weight: normal;
+    color: #254564;
+}
+
+section p.intro
+ {
+	margin-top: 50px;
+    margin-left: 3%;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: italic;
+    line-height: 20px;
+    color: #254564;
+}
+
+section {
+	width: 77%;
+	margin: auto;
+	background-color: white;
+}
+
+article img {
+	max-width: 47%;
+	min-width: 30%;
+	margin-left: 4%;
+	margin-top: 15px;
+	display: inline-block;
+
+}
+
+article div {
+	display: inline-block;
+	margin-left: 2%;
+	margin-top: 20px;
+	font-size: 21px;
+    font-weight: bold;
+    color: #254564;
+    width: 42%;
+    vertical-align: top;
+}
+
+article p {
+	margin-top: 10px;
+    font-size: 16px;
+    font-weight: normal;
+    color: black;
+}
+
+.teodor img{
+	padding-bottom: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
